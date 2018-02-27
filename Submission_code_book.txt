@@ -1,0 +1,96 @@
+This file describes additional analysis to the measurements obtained in the files "features_info.txt" and "features.txt".
+
+Values for x_test.txt, y_test.txt, x_train.txt, y_train.txt,subject_test.txt, subject_train.txt (test and training sets) were merged into columns, in sequecne of test/train.
+x_test and x_train correspond to the measurements and y_test, y_train to the particular activity (enumerated 1-6), and subject_test, subject_train enumerate the human performing the activity.
+
+
+Column headers were added verbatim from the file "features.txt" for each of the 561 measurements, and the description of the activities (STANDING,WALKING, etc) corresponding to the numbers 1-6 were parsed into a column with order of subject and activity number preserved.
+
+For example, R-script "combine_data.R" delineates the procedure of combining the data, into file "all_data.csv"
+Functions in R including specialized expressions from the DPLYR package produce this data frame.
+
+Our post-processing instruction was to select all time-window-average (mean) and standard deviation (STD) taken for relevant measurements. Note that 'meanfreq' measurements do not apply. These are NOT time-averages of the t-window measurements, they are weighted averages of the FFT power spectrum.
+
+Corresponding column names are as follows - note however DPLYR replacement of characters ',' '(' ')' '-' with '.' to make them DPLYR-friendly titles.:
+
+subject
+activity_number
+activity_type
+tBodyAcc.mean...X
+tBodyAcc.mean...Y
+tBodyAcc.mean...Z
+tBodyAcc.std...X
+tBodyAcc.std...Y
+tBodyAcc.std...Z
+tGravityAcc.mean...X
+tGravityAcc.mean...Y
+tGravityAcc.mean...Z
+tGravityAcc.std...X
+tGravityAcc.std...Y
+tGravityAcc.std...Z
+tBodyAccJerk.mean...X
+tBodyAccJerk.mean...Y
+tBodyAccJerk.mean...Z
+tBodyAccJerk.std...X
+tBodyAccJerk.std...Y
+tBodyAccJerk.std...Z
+tBodyGyro.mean...X
+tBodyGyro.mean...Y
+tBodyGyro.mean...Z
+tBodyGyro.std...X
+tBodyGyro.std...Y
+tBodyGyro.std...Z
+tBodyGyroJerk.mean...X
+tBodyGyroJerk.mean...Y
+tBodyGyroJerk.mean...Z
+tBodyGyroJerk.std...X
+tBodyGyroJerk.std...Y
+tBodyGyroJerk.std...Z
+tBodyAccMag.mean..
+tBodyAccMag.std..
+tGravityAccMag.mean..
+tGravityAccMag.std..
+tBodyAccJerkMag.mean..
+tBodyAccJerkMag.std..
+tBodyGyroMag.mean..
+tBodyGyroMag.std..
+tBodyGyroJerkMag.mean..
+tBodyGyroJerkMag.std..
+fBodyAcc.mean...X
+fBodyAcc.mean...Y
+fBodyAcc.mean...Z
+fBodyAcc.std...X
+fBodyAcc.std...Y
+fBodyAcc.std...Z
+fBodyAccJerk.mean...X
+fBodyAccJerk.mean...Y
+fBodyAccJerk.mean...Z
+fBodyAccJerk.std...X
+fBodyAccJerk.std...Y
+fBodyAccJerk.std...Z
+fBodyGyro.mean...X
+fBodyGyro.mean...Y
+fBodyGyro.mean...Z
+fBodyGyro.std...X
+fBodyGyro.std...Y
+fBodyGyro.std...Z
+fBodyAccMag.mean..
+fBodyAccMag.std..
+fBodyBodyAccJerkMag.mean..
+fBodyBodyAccJerkMag.std..
+fBodyBodyGyroMag.mean..
+fBodyBodyGyroMag.std..
+fBodyBodyGyroJerkMag.mean..
+fBodyBodyGyroJerkMag.std..
+angle.tBodyAccMean.gravity.
+angle.tBodyAccJerkMean..gravityMean.
+angle.tBodyGyroMean.gravityMean.
+angle.tBodyGyroJerkMean.gravityMean.
+angle.X.gravityMean.
+angle.Y.gravityMean.
+angle.Z.gravityMean.
+
+
+Data were sorted first by subject and then by activity type, and each sort- pair was then averaged, e.g. subject 1, WALKING, subject 1, STANDING, etc
+
+See file "subject_activity_means.csv"  Note script checks if files are written to avoid duplication of effort. Deleting or renaming "alldata.csv" will start the process from the beginning
